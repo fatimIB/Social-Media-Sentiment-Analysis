@@ -12,10 +12,6 @@ ENV/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
-# Model files (VERY IMPORTANT)
-*.pkl
-*.joblib
-
 
 # Logs
 *.log
