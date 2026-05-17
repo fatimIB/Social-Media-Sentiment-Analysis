@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentimentPulse — Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <div>
+        <div class="logo-name">SentimentPulse</div>
+        <div class="logo-sub">Social Intelligence</div>
+      </div>
+    </div>
+
+    <div class="nav-group">Navigation</div>
+
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+      </svg>
+      Dashboard
+    </div>
+
+    <div class="sidebar-footer" style="margin-top:auto">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+        <span class="status-dot"></span>
+        <span style="font-size:12px;font-weight:600">API Connected</span>
+      </div>
+
+      <div style="font-size:11px;color:var(--muted);line-height:1.6">
+        Model: Linear SVM (LinearSVC)<br>
+        Accuracy: 88%<br>
+        Port: 8000
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Dashboard</h1>
+        <p>Sentiment intelligence · updated system</p>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;color:var(--muted)">FastAPI · port 8000</span>
+        <span class="pill green">
+          <span class="status-dot" style="width:6px;height:6px"></span>
+          Online
+        </span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div>
+          <div class="hero-badge">
+            <span class="status-dot" style="width:6px;height:6px"></span>
+            Production ready · v1.0
+          </div>
+
+          <h2>Social Media<br>Sentiment Analyzer</h2>
+
+          <p>
+            End-to-end NLP pipeline that scrapes Reddit posts,
+            preprocesses text, and classifies sentiment using a machine learning
+            model trained on 1.6 million tweets. Designed for brand monitoring,
+            trend detection, and large-scale public opinion analysis.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Linear SVM</span>
+            <span class="tag">TF-IDF Vectorizer</span>
+            <span class="tag">Reddit · PRAW</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">asyncio</span>
+          </div>
+        </div>
+
+        <div class="hero-kpis">
+          <div class="kpi">
+            <div class="kpi-val" style="color:var(--green)">87.9%</div>
+            <div class="kpi-label">Model Accuracy</div>
+          </div>
+
+          <div class="kpi">
+            <div class="kpi-val">1.6M</div>
+            <div class="kpi-label">Training Tweets</div>
+          </div>
+
+          <div class="kpi">
+            <div class="kpi-val" style="color:var(--blue)">3</div>
+            <div class="kpi-label">Sentiment Classes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics">
+
+        <div class="metric">
+          <div class="metric-label">Positive Rate</div>
+          <div class="metric-val" style="color:var(--green)">62.4%</div>
+          <div class="metric-change up">↑ +4.1% this week</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Negative Rate</div>
+          <div class="metric-val" style="color:var(--red)">21.3%</div>
+          <div class="metric-change down">↓ −1.8% this week</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Neutral Rate</div>
+          <div class="metric-val" style="color:var(--amber)">16.3%</div>
+          <div class="metric-change flat">→ stable</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Posts / analysis</div>
+          <div class="metric-val">~45</div>
+          <div class="metric-change flat">search + top subreddits</div>
+        </div>
+
+      </div>
+
+      <!-- CHARTS -->
+      <div class="row2">
+
+        <div class="card">
+          <div class="card-title">Corpus Distribution</div>
+          <div class="card-sub">1.6 million tweets · training dataset</div>
+
+          <div class="legend">
+            <span class="legend-item"><span class="legend-sq" style="background:var(--green)"></span>Positive · 46%</span>
+            <span class="legend-item"><span class="legend-sq" style="background:var(--red)"></span>Negative · 36%</span>
+            <span class="legend-item"><span class="legend-sq" style="background:var(--amber)"></span>Neutral · 18%</span>
+          </div>
+
+          <div style="position:relative;height:190px">
+            <canvas id="distChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Performance per Class</div>
+          <div class="card-sub">Validation accuracy</div>
+
+          <div class="pipeline">
+            <div class="pipe-row">
+              <span class="pipe-label">Positive</span>
+              <div class="bar-track"><div class="bar-fill" id="b1"></div></div>
+              <span class="pipe-pct">91%</span>
+            </div>
+
+            <div class="pipe-row">
+              <span class="pipe-label">Negative</span>
+              <div class="bar-track"><div class="bar-fill" id="b2"></div></div>
+              <span class="pipe-pct">85%</span>
+            </div>
+
+            <div class="pipe-row">
+              <span class="pipe-label">Neutral</span>
+              <div class="bar-track"><div class="bar-fill" id="b3"></div></div>
+              <span class="pipe-pct">78%</span>
+            </div>
+
+            <div class="pipe-row">
+              <span class="pipe-label">Global</span>
+              <div class="bar-track"><div class="bar-fill" id="b4"></div></div>
+              <span class="pipe-pct">87%</span>
+            </div>
+          </div>
+
+          <div class="arch">
+            <div class="arch-box">Reddit API <span class="arch-badge">PRAW</span></div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">Preprocessing</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">TF-IDF</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box accent">Predict (SVM)</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ANALYZER -->
+      <div class="row2">
+
+        <div class="analyzer">
+          <div class="analyzer-head">
+            <div>
+              <div class="card-title">Live Analyzer</div>
+              <div style="font-size:11px;color:var(--dim);margin-top:2px">
+                Connected to FastAPI · port 8000
+              </div>
+            </div>
+          </div>
+
+          <div class="analyzer-body">
+            <textarea id="inputText" placeholder="Enter a keyword to analyze..."></textarea>
+            <div id="resultBox"></div>
+          </div>
+
+          <div class="analyzer-foot">
+            <span id="charCount" style="font-size:11px;color:var(--dim)">0 characters</span>
+            <button class="btn" id="analyzeBtn" onclick="runAnalysis()">Analyze →</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Activity</div>
+          <div class="card-sub">Session analysis logs</div>
+
+          <div class="feed" id="feed">
+            <div class="feed-empty">No analysis yet — run your first query</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="postsBox" style="display:none;"></div>
+
+      <!-- TREND -->
+      <div class="card">
+        <div class="card-title">Sentiment Trend · 7-day window</div>
+        <div class="card-sub">Rolling daily averages of analyzed posts</div>
+
+        <div class="legend">
+          <span class="legend-item"><span class="legend-sq" style="background:var(--green)"></span>Positive</span>
+          <span class="legend-item"><span class="legend-sq" style="background:var(--red)"></span>Negative</span>
+          <span class="legend-item"><span class="legend-sq" style="background:var(--amber)"></span>Neutral</span>
+        </div>
+
+        <div style="position:relative;height:170px">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
